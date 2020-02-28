@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Group Expenses</string>
     <string name="btn_add_data">Add Data</string>
-    <string name="test">Test</string>
+    <string name="total_expenses">Total Expenses: </string>
+    <string name="tot_exp_amount">0.00</string>
+    <string name="average_expenses">Average Expense: </string>
+    <string name="person">Person</string>
+    <string name="amount">Amount</string>
+    <string name="info">Info</string>
+    <string name="back_btn">Back</string>
     <string name="btn_settlement">Settlement</string>
 </resources>
