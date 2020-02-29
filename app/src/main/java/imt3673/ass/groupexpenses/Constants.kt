@@ -14,20 +14,29 @@ package imt3673.ass.groupexpenses
  * See wiki and tests for details.
  */
 fun sanitizeName(name: String): String {
-    val input = name.trim()
-    val regex = Regex("[^A-Za-z ]")
-//    val regName = regex.replace(input, "")
-    val listOfInputs = input.split(" ", "\n", "\t").filter { it->it != "" }
-    listOfInputs.map { it -> regex.replace(it, "") }
-    val token1 = listOfInputs.first().toLowerCase()
+    val regex = Regex("[^-A-Za-z\\s]")
+    val regName = name.replace(regex, "")
+    val input = regName.trim()
+    val listOfInputs = input.split("\\s+".toRegex())
+    var token1 = listOfInputs.first().toLowerCase()
+    if(token1.contains("-"))
+    {
+        val token11 = token1.split("-").first()
+        val token12 = token1.split("-")[1]
+        token1 = token11 + "-" + token12.capitalize()
+    }
     if(listOfInputs.size > 1)
     {
-        val token2 = listOfInputs.get(1).toLowerCase()
-        return token1.first().toUpperCase() + token1.substring(1) + " " + token2.first().toUpperCase() + token2.substring(1)
+        var token2 = listOfInputs[1].toLowerCase()
+        if(token2.contains("-"))
+        {
+            val token21 = token2.split("-").first()
+            val token22 = token2.split("-")[1]
+            token2 = token21 + "-" + token22.capitalize()
+        }
+        return token1.capitalize() + " " + token2.capitalize()
     }
-    else return token1.first().toUpperCase() + token1.substring(1)
-
-//    return name
+    else return token1.capitalize()
 }
 
 /**
