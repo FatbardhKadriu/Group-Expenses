@@ -36,7 +36,7 @@ fun sanitizeName(name: String): String {
         }
         return token1.capitalize() + " " + token2.capitalize()
     }
-    else return token1.capitalize()
+    return token1.capitalize()
 }
 
 /**
