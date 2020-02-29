@@ -5,11 +5,11 @@ package imt3673.ass.groupexpenses
  *
  * TODO implement the functionality of this class
  */
-class Expenses {
+class Expenses constructor(){
 
     // NOTE: Expenses MUST have a default, non-argument constructor.
 
-
+    
     // Adds new expense to the expenses list.
     // If the Person does not exist in the expenses,
     //   the person is added to the list, and false is returned.

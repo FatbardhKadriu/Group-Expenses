@@ -1,7 +1,9 @@
 package imt3673.ass.groupexpenses
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         setupUI()
     }
 
@@ -23,7 +26,10 @@ class MainActivity : AppCompatActivity() {
 
     // TODO implement setupUI method
     private fun setupUI() {
-
+        btn_add_data.setOnClickListener{
+            val dataEntry = Intent(this, DataEntryActivity::class.java)
+            startActivity(dataEntry)
+        }
     }
 
 

@@ -8,5 +8,7 @@
     <string name="amount">Amount</string>
     <string name="info">Info</string>
     <string name="back_btn">Back</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_add_expense">Add</string>
     <string name="btn_settlement">Settlement</string>
 </resources>

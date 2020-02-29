@@ -14,9 +14,20 @@ package imt3673.ass.groupexpenses
  * See wiki and tests for details.
  */
 fun sanitizeName(name: String): String {
-    // TODO implement the logic
+    val input = name.trim()
+    val regex = Regex("[^A-Za-z ]")
+//    val regName = regex.replace(input, "")
+    val listOfInputs = input.split(" ", "\n", "\t").filter { it->it != "" }
+    listOfInputs.map { it -> regex.replace(it, "") }
+    val token1 = listOfInputs.first().toLowerCase()
+    if(listOfInputs.size > 1)
+    {
+        val token2 = listOfInputs.get(1).toLowerCase()
+        return token1.first().toUpperCase() + token1.substring(1) + " " + token2.first().toUpperCase() + token2.substring(1)
+    }
+    else return token1.first().toUpperCase() + token1.substring(1)
 
-    return name
+//    return name
 }
 
 /**

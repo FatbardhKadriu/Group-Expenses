@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/dataentry_view"
+    tools:context=".DataEntryActivity">
+
+    <EditText
+        android:id="@+id/edit_person"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/person"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
+    <EditText
+        android:id="@+id/edit_amount"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/amount"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
+    <EditText
+        android:id="@+id/edit_description"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/info"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_cancel"/>
+        <Button
+            android:id="@+id/btn_add_expense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_add_expense"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_add_expenses_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text=""/>
+
+</LinearLayout>
