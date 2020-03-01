@@ -1,5 +1,7 @@
 package imt3673.ass.groupexpenses
 
+import kotlin.math.absoluteValue
+
 /**
  * Keep all the package level functions and constants here.
  * Keep public classes in their respective files, one per file, with consistent
@@ -66,9 +68,17 @@ fun calculateSettlement(expenses: Expenses): List<Transaction> {
  * two decimal places. Note, the decimal place separator can be
  * dot or comma, subject to the current locale used.
  */
+
 fun convertAmountToString(amount: Long): String {
 
-    // TODO implement the conversion from Amount
+    // that is of type Long to String
+    // The string should be formatted with 2 decimal places, with the locale-defined
+    // decimal point separator.
+
+    // Examples, with dot as decimal separator:
+    // 20 -> "0.20"
+    // 500 -> "5.00"
+    // 1234 -> "12.34"
     // that is of type Long to String
     // The string should be formatted with 2 decimal places, with the locale-defined
     // decimal point separator.
@@ -78,7 +88,28 @@ fun convertAmountToString(amount: Long): String {
     // 500 -> "5.00"
     // 1234 -> "12.34"
 
-    return if (amount == 420L) "4.20" else "0.00"
+    var input = amount.absoluteValue.toString()
+    var size = input.length;
+    var wholeNum = "0"
+    var decimal = "00"
+    if(size == 2){
+        decimal = input
+    }
+    else if (size == 1){
+        decimal = "0" + input
+    }
+    else if(size > 2){
+        decimal = input.substring(size - 2, size)
+        wholeNum = input.substring(0, size - 2)
+    }
+    var output = wholeNum + "." + decimal;
+
+    if(amount < 0){
+        return "-" + output
+    }
+    else{
+        return output
+    }
 }
 
 /**
@@ -86,15 +117,29 @@ fun convertAmountToString(amount: Long): String {
  * appropriate error string.
  */
 fun convertStringToAmount(value: String): Result<Long> {
-
-    // TODO implement the conversion from String to Amount
-
-    if (value == "19.99") return Result.success(1999)
-    if (value == "19") return Result.success(1900)
-    if (value == "-4.20") return Result.success(-420)
-
-    if (value == "0.001") return Result.failure(Throwable("Too many decimal places."))
-    if (value == "test") return Result.failure(Throwable("Not a number"))
-
-    return Result.failure(Throwable("Method not implemented yet"))
+    var wholeNum:String
+    var decimal:String
+    var output:Long
+    var numsplit = value.split(".", ",")
+    if(numsplit.size == 2){
+        wholeNum = numsplit[0]
+        decimal = numsplit[1]
+        if(decimal.length > 2){
+            return Result.failure(Throwable("Too many decimal places."))
+        }
+        else
+        {
+            output = (wholeNum.plus(decimal)).toLong()
+            return Result.success(output)
+        }
+    }
+    else if (numsplit.size == 1){
+        wholeNum = numsplit[0] + "00"
+        output = wholeNum.toLong()
+        return Result.success(output)
+    }
+    else
+    {
+        return Result.failure(Throwable("Not a number"))
+    }
 }
