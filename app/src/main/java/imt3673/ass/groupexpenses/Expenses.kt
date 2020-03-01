@@ -5,10 +5,9 @@ package imt3673.ass.groupexpenses
  *
  * TODO implement the functionality of this class
  */
-class Expenses constructor(){
+class Expenses(private val expensesList: MutableList<SingleExpense> = mutableListOf()){
 
     // NOTE: Expenses MUST have a default, non-argument constructor.
-
     
     // Adds new expense to the expenses list.
     // If the Person does not exist in the expenses,
@@ -52,6 +51,7 @@ class Expenses constructor(){
     // TODO implement the method
     fun allExpenses(): List<SingleExpense> {
         return listOf()
+        //        return expensesList.toList()
     }
 
     // Makes a deep copy of this expense instance
