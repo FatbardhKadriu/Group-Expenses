@@ -13,8 +13,11 @@ class MainActivity : FragmentActivity() {
     var settlement = listOf<Transaction>()
 
     private var isMainFragmentShowing = true
+    private var isDataEntryFragment = false
+    private var isSettlementFragment = false
     private val mainFragment = MainFragment()
     private val dataEntryFragment = DataEntryFragment()
+    private val settlementFragment = SettlementFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +44,8 @@ class MainActivity : FragmentActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         isMainFragmentShowing = true
+        isDataEntryFragment = false
+        isSettlementFragment = false
     }
 
     fun showMainFragment() {
@@ -54,10 +59,12 @@ class MainActivity : FragmentActivity() {
             .commit()
 
         isMainFragmentShowing = true
+        isDataEntryFragment = false
+        isSettlementFragment = false
     }
 
     fun showDataEntryFragment() {
-        if (!isMainFragmentShowing) return
+        if (isDataEntryFragment) return
 
         dataEntryFragment.arguments = Bundle()
 
@@ -68,6 +75,24 @@ class MainActivity : FragmentActivity() {
             .commit()
 
         isMainFragmentShowing = false
+        isDataEntryFragment = true
+        isSettlementFragment = false
+    }
+
+    fun showSettlementFragment() {
+        if (isSettlementFragment) return
+
+        dataEntryFragment.arguments = Bundle()
+
+        // Add the fragment to the 'fragment_container' FrameLayout
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, settlementFragment)
+            .addToBackStack(null)
+            .commit()
+
+        isMainFragmentShowing = true
+        isDataEntryFragment = false
+        isSettlementFragment = true
     }
 
 
