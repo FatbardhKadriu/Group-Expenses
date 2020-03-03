@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settlement_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginRight="10dp"
     android:orientation="vertical"
     tools:context=".SettlementFragment">
 
     <TableLayout
+        android:id="@+id/tbl_settlements"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="0, 1, 2">
+        android:background="@color/colorPrimary"
+        android:stretchColumns="*">
+
         <TableRow android:padding="10dp">
+
             <TextView
                 android:text="@string/payer"
-                android:textStyle="bold"/>
+                android:textColor="#FFFFFF"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:text="@string/payee"
-                android:textStyle="bold"/>
+                android:textColor="#FFFFFF"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:text="@string/amount"
-                android:textStyle="bold"/>
+                android:textColor="#FFFFFF"
+                android:textSize="17sp"
+                android:textStyle="bold" />
         </TableRow>
     </TableLayout>
 

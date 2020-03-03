@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_view"
     xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout
         android:orientation="vertical"

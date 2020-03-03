@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 
 class DataEntryFragment : Fragment() {
 
+    private var totAmount: Long = 0
+    private var avg: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -38,6 +40,12 @@ class DataEntryFragment : Fragment() {
                     edit_description.text.toString()
                 )
             )
+            totAmount +=  convertStringToAmount(edit_amount.text.toString()).getOrDefault(0)
+            avg = totAmount/main.expenses.allExpenses().size
+
+            main.setTotalAmount(totAmount)
+            main.setAverage(avg)
+
         }
         return view
     }

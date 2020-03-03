@@ -6,7 +6,7 @@
     <string name="average_expenses">Average Expense: </string>
     <string name="person">Person</string>
     <string name="amount">Amount</string>
-    <string name="info">Info</string>
+    <string name="info">Description</string>
     <string name="back_btn">Back</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_add_expense">Add</string>

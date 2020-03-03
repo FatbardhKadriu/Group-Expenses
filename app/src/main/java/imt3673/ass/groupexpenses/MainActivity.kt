@@ -5,12 +5,16 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainActivity : FragmentActivity() {
 
     // The storage for all expenses
     val expenses: Expenses = Expenses()
     var settlement = listOf<Transaction>()
+
+    private var totalAmount:Long = 0L
+    private var average:Long = 0
 
     private var isMainFragmentShowing = true
     private var isDataEntryFragment = false
@@ -93,6 +97,22 @@ class MainActivity : FragmentActivity() {
         isMainFragmentShowing = true
         isDataEntryFragment = false
         isSettlementFragment = true
+    }
+
+    fun setTotalAmount(amount: Long)
+    {
+        this.totalAmount = amount
+    }
+    fun setAverage(average: Long)
+    {
+        this.average = average
+    }
+    fun getTotAmount():Long
+    {
+        return this.totalAmount
+    }
+    fun getAvg():Long{
+        return this.average
     }
 
 
