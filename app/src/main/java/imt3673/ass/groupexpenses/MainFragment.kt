@@ -29,8 +29,8 @@ class MainFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_main, container, false)
 
-        view.txt_expenses_total.text = main.getTotAmount().toString()
-        view.txt_expenses_avr.text = main.getAvg().toString()
+        view.txt_expenses_total.text = convertAmountToString(main.getTotAmount())
+        view.txt_expenses_avr.text = convertAmountToString(main.getAvg())
         view.btn_settlement.isEnabled = false
         if(main.expenses.allExpenses().size >= 2)
         {
@@ -44,7 +44,7 @@ class MainFragment : Fragment() {
             var amount = TextView(main)
             var desc = TextView(main)
             person.text = it.person
-            amount.text = it.amount.toString()
+            amount.text = convertAmountToString(it.amount)
             desc.text = it.description
             var row = TableRow(main)
             row.addView(person)

@@ -1,14 +1,12 @@
 package imt3673.ass.groupexpenses
 
-import kotlin.math.absoluteValue
+import kotlin.math.*
 
 /**
  * Keep all the package level functions and constants here.
  * Keep public classes in their respective files, one per file, with consistent
  * naming conventions.
  */
-
-
 
 
 /**
@@ -45,22 +43,68 @@ fun sanitizeName(name: String): String {
  * Utility method for settlement calculations.
  * Takes the Expenses instance, and produces a list of Transactions.
  */
+//fun calculateSettlement(expenses: Expenses): List<Transaction> {
+//    // TODO implement the logic
+//
+//    // dummy implementation for a simple single case
+//    // Alice -> 20
+//    // Bob -> 20
+//    // Charlie -> 30
+//    // David -> 50
+//
+//    // Only one resonable solution:
+//    // Alice to David -> 10
+//    // Bob to David -> 10
+//    return listOf(
+//        Transaction("Alice", "David", 1000),
+//        Transaction("Bob", "David", 1000))
+//}
+var myTransaction = ArrayList<Transaction>()
 fun calculateSettlement(expenses: Expenses): List<Transaction> {
-    // TODO implement the logic
 
-    // dummy implementation for a simple single case
-    // Alice -> 20
-    // Bob -> 20
-    // Charlie -> 30
-    // David -> 50
+    var expOut:Expenses = expenses.copy()
+    var totalAmount = 0L
+    var totExpAmount = 0L
+    if(expenses.allExpenses().isEmpty() || expenses.allExpenses().size == 1) return myTransaction
 
-    // Only one resonable solution:
-    // Alice to David -> 10
-    // Bob to David -> 10
-    return listOf(
-        Transaction("Alice", "David", 1000),
-        Transaction("Bob", "David", 1000))
+    expenses.allExpenses().toTypedArray().forEach {
+        totalAmount += it.amount
+    }
+    expOut.allExpenses().toTypedArray().forEach {
+        totExpAmount += it.amount
+    }
+
+    var averagePrice = (totalAmount / expenses.allExpenses().size).toInt()
+    var expOutAverage = (totExpAmount / expOut.allExpenses().size).toInt()
+
+
+    var list: MutableList<SingleExpense> = mutableListOf()
+    expOut.allExpenses().toTypedArray().forEach{
+        if(abs(it.amount - expOutAverage) > expOut.allExpenses().size - 1){
+            list.add(it)
+        }
+    }
+
+    if(list.size > 1)
+    {
+        list = list.sortedByDescending { it.amount }.toMutableList()
+        myTransaction.add(Transaction(list[list.size-1].person, list[0].person,  abs(averagePrice -list[list.size-1].amount)))
+        expOut.replace(SingleExpense(list[0].person, list[0].amount - abs(averagePrice -list[list.size-1].amount)))
+        expOut.replace(SingleExpense(list[list.size-1].person, averagePrice.toLong()))
+
+        return calculateSettlement(expOut)
+    }
+    else {
+//        if(totExpAmount != totalAmount)
+//        {
+//            diff = (totalAmount-totExpAmount)
+//            expOut.replace(SingleExpense(expOut.allExpenses().get(0).person,
+//                expOut.allExpenses().get(0).amount + diff))
+//        }
+        return myTransaction.toList()
+    }
 }
+
 
 
 /**

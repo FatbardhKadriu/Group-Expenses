@@ -1,5 +1,7 @@
 package imt3673.ass.groupexpenses
 
+import kotlin.math.exp
+
 /**
  * Represents all the expenses of the group of people.
  *
@@ -18,24 +20,21 @@ class Expenses(private val expensesList: MutableList<SingleExpense> = mutableLis
     // No duplicates.
     fun add(expense: SingleExpense): Boolean {
         var response: Boolean = false
-        if(expensesList.isEmpty()){
-            expensesList.add(expense)
-            response = false
-        }
-        else{
+        var exists:Boolean = false
+       if(expensesList.isNotEmpty()){
             expensesList.toTypedArray().forEach{
                 if(it.person == expense.person){
                     var totalAmount = it.amount + expense.amount
                     val newExpense = SingleExpense(expense.person, totalAmount, expense.description)
                     this.replace(newExpense)
+                    exists = true
                     response = true
                 }
-                else{
-                    expensesList.add(expense)
-                    response = false
-                }
             }
-        }
+            if(!exists){
+                expensesList.add(expense)
+            }
+        }else expensesList.add(expense)
         return response
     }
 
@@ -44,23 +43,22 @@ class Expenses(private val expensesList: MutableList<SingleExpense> = mutableLis
     // the claim amount to the existing person, it replaces it instead.
     fun replace(expense: SingleExpense): Boolean {
         var response: Boolean = false
-        if(expensesList.isEmpty()){
-            expensesList.add(expense)
-            response = false
-        }
-        else{
+        var exists:Boolean = false
+
+        if(expensesList.isNotEmpty()){
             expensesList.toTypedArray().forEach{
                 if(it.person == expense.person){
+                    exists = true
+                    this.remove(it.person)
                     expensesList.add(expense)
-                    expensesList.remove(it)
                     response = true
                 }
-                else{
-                    expensesList.add(expense)
-                    response = false
-                }
             }
-        }
+            if(!exists)
+            {
+                expensesList.add(expense)
+            }
+        }else expensesList.add(expense)
         return response
     }
 
@@ -69,17 +67,12 @@ class Expenses(private val expensesList: MutableList<SingleExpense> = mutableLis
     // Otherwise, it returns false.
     fun remove(person: String): Boolean {
         var response: Boolean = false
-        if(expensesList.isEmpty()){
-            response = false
-        }
-        else{
+
+        if(expensesList.isNotEmpty()){
             expensesList.toTypedArray().forEach{
                 if(it.person == person){
                     expensesList.remove(it)
                     response = true
-                }
-                else{
-                    response = false
                 }
             }
         }
@@ -90,16 +83,20 @@ class Expenses(private val expensesList: MutableList<SingleExpense> = mutableLis
     // If the person does not exist, the function returns failed result.
     fun amountFor(person: String): Result<Long> {
         var result:Result<Long> = Result.success(0)
+        var doesExist:Boolean = false
         if(expensesList.isEmpty()){
             return Result.failure(Throwable("There is no Expense"))
         }
         else {
             expensesList.toTypedArray().forEach {
                 if (it.person == person) {
+                    doesExist = true
                     result =  Result.success(it.amount)
-                } else {
-                    result = Result.failure(Throwable("This person does not exist"))
                 }
+            }
+            if(!doesExist)
+            {
+                result = Result.failure(Throwable("This person does not exist"))
             }
         }
         return result
