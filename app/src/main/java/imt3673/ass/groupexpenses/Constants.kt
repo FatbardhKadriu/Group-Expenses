@@ -2,17 +2,6 @@ package imt3673.ass.groupexpenses
 
 import kotlin.math.*
 
-/**
- * Keep all the package level functions and constants here.
- * Keep public classes in their respective files, one per file, with consistent
- * naming conventions.
- */
-
-
-/**
- * Sanitize the name text entries following the specification.
- * See wiki and tests for details.
- */
 fun sanitizeName(name: String): String {
     val regex = Regex("[^-A-Za-z\\s]")
     val regName = name.replace(regex, "")
@@ -39,48 +28,20 @@ fun sanitizeName(name: String): String {
     return token1.capitalize()
 }
 
-/**
- * Utility method for settlement calculations.
- * Takes the Expenses instance, and produces a list of Transactions.
- */
-//fun calculateSettlement(expenses: Expenses): List<Transaction> {
-//    // TODO implement the logic
-//
-//    // dummy implementation for a simple single case
-//    // Alice -> 20
-//    // Bob -> 20
-//    // Charlie -> 30
-//    // David -> 50
-//
-//    // Only one resonable solution:
-//    // Alice to David -> 10
-//    // Bob to David -> 10
-//    return listOf(
-//        Transaction("Alice", "David", 1000),
-//        Transaction("Bob", "David", 1000))
-//}
-var myTransaction = ArrayList<Transaction>()
 fun calculateSettlement(expenses: Expenses): List<Transaction> {
-
-    var expOut:Expenses = expenses.copy()
+    var expenseCopy:Expenses = expenses.copy()
     var totalAmount = 0L
-    var totExpAmount = 0L
-    if(expenses.allExpenses().isEmpty() || expenses.allExpenses().size == 1) return myTransaction
+    if(expenses.allExpenses().isEmpty() || expenses.allExpenses().size == 1) return expenses.myTransaction
 
-    expenses.allExpenses().toTypedArray().forEach {
+    expenseCopy.allExpenses().forEach {
         totalAmount += it.amount
     }
-    expOut.allExpenses().toTypedArray().forEach {
-        totExpAmount += it.amount
-    }
 
-    var averagePrice = (totalAmount / expenses.allExpenses().size).toInt()
-    var expOutAverage = (totExpAmount / expOut.allExpenses().size).toInt()
-
+    var average = (totalAmount / expenses.allExpenses().size).toInt()
 
     var list: MutableList<SingleExpense> = mutableListOf()
-    expOut.allExpenses().toTypedArray().forEach{
-        if(abs(it.amount - expOutAverage) > expOut.allExpenses().size - 1){
+    expenseCopy.allExpenses().forEach{
+        if(abs(it.amount - average) > expenseCopy.allExpenses().size - 1){
             list.add(it)
         }
     }
@@ -88,24 +49,13 @@ fun calculateSettlement(expenses: Expenses): List<Transaction> {
     if(list.size > 1)
     {
         list = list.sortedByDescending { it.amount }.toMutableList()
-        myTransaction.add(Transaction(list[list.size-1].person, list[0].person,  abs(averagePrice -list[list.size-1].amount)))
-        expOut.replace(SingleExpense(list[0].person, list[0].amount - abs(averagePrice -list[list.size-1].amount)))
-        expOut.replace(SingleExpense(list[list.size-1].person, averagePrice.toLong()))
-
-        return calculateSettlement(expOut)
+        expenses.myTransaction.add(Transaction(list[list.size-1].person, list[0].person,  abs(average -list[list.size-1].amount)))
+        expenseCopy.replace(SingleExpense(list[0].person, list[0].amount - abs(average -list[list.size-1].amount)))
+        expenseCopy.replace(SingleExpense(list[list.size-1].person, average.toLong()))
+        expenses.myTransaction.addAll(calculateSettlement(expenseCopy))
     }
-    else {
-//        if(totExpAmount != totalAmount)
-//        {
-//            diff = (totalAmount-totExpAmount)
-//            expOut.replace(SingleExpense(expOut.allExpenses().get(0).person,
-//                expOut.allExpenses().get(0).amount + diff))
-//        }
-        return myTransaction.toList()
-    }
+    return expenses.myTransaction.toList()
 }
-
-
 
 /**
  * Converts a given Long amount into a formatted String, with
@@ -116,9 +66,6 @@ fun calculateSettlement(expenses: Expenses): List<Transaction> {
 fun convertAmountToString(amount: Long): String {
 
     // that is of type Long to String
-    // The string should be formatted with 2 decimal places, with the locale-defined
-    // decimal point separator.
-
     // Examples, with dot as decimal separator:
     // 20 -> "0.20"
     // 500 -> "5.00"
@@ -126,11 +73,6 @@ fun convertAmountToString(amount: Long): String {
     // that is of type Long to String
     // The string should be formatted with 2 decimal places, with the locale-defined
     // decimal point separator.
-
-    // Examples, with dot as decimal separator:
-    // 20 -> "0.20"
-    // 500 -> "5.00"
-    // 1234 -> "12.34"
 
     var input = amount.absoluteValue.toString()
     var size = input.length;
@@ -146,6 +88,7 @@ fun convertAmountToString(amount: Long): String {
         decimal = input.substring(size - 2, size)
         wholeNum = input.substring(0, size - 2)
     }
+    //TODO if locale NO return ',' else '.'
     var output = wholeNum + "." + decimal;
 
     if(amount < 0){
@@ -156,10 +99,6 @@ fun convertAmountToString(amount: Long): String {
     }
 }
 
-/**
- * Convert from String to Amount. If error, return failed result with
- * appropriate error string.
- */
 fun convertStringToAmount(value: String): Result<Long> {
     var wholeNum:String
     var decimal:String
