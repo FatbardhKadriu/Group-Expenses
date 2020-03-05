@@ -77,30 +77,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:gravity="center"
             android:layout_marginTop="200dp"
-            android:gravity="center">
-
-
-            <Button
+            android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_settlement"
-                android:layout_width="120dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#2196F3"
-                android:text="@string/btn_settlement"
-                android:layout_marginRight="20dp"
-                android:textColor="#000000"
-                android:textSize="15sp" />
+                android:text="@string/btn_settlement" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_data"
-                android:layout_width="100dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:background="#009688"
-                android:text="@string/btn_add_data"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp" />
+                android:text="@string/btn_add_expense" />
+
         </LinearLayout>
 
 

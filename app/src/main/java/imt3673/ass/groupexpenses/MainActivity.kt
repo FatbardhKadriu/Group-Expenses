@@ -35,6 +35,7 @@ class MainActivity : FragmentActivity() {
         mainFragment.arguments = Bundle()
 
         supportFragmentManager.beginTransaction().add(R.id.fragment_container, mainFragment).commit()
+        updateSettlement()
 
         isMainFragmentShowing = true
     }

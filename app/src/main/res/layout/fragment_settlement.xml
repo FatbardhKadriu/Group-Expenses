@@ -14,10 +14,10 @@
         android:id="@+id/tbl_settlements"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:stretchColumns="*">
 
-        <TableRow android:padding="10dp">
+        <TableRow android:padding="10dp"
+            android:background="@color/colorPrimary">
 
             <TextView
                 android:text="@string/payer"

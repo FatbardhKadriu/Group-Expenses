@@ -83,6 +83,10 @@ class Expenses(private val expensesList: MutableList<SingleExpense> = mutableLis
         return expensesList.toList()
     }
 
+
+    fun allTransaction(): List<Transaction>{
+        return myTransaction.toList()
+    }
     fun copy(): Expenses {
         val exp = Expenses()
         allExpenses().forEach {
