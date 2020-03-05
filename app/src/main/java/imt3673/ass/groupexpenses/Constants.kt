@@ -1,5 +1,7 @@
 package imt3673.ass.groupexpenses
 
+import java.text.DecimalFormatSymbols
+import java.util.*
 import kotlin.math.*
 
 fun sanitizeName(name: String): String {
@@ -7,7 +9,7 @@ fun sanitizeName(name: String): String {
     val regName = name.replace(regex, "")
     val input = regName.trim()
     val listOfInputs = input.split("\\s+".toRegex())
-    var token1 = listOfInputs.first().toLowerCase()
+    var token1 = listOfInputs.first().toLowerCase(Locale.getDefault())
     if(token1.contains("-"))
     {
         val token11 = token1.split("-").first()
@@ -16,7 +18,7 @@ fun sanitizeName(name: String): String {
     }
     if(listOfInputs.size > 1)
     {
-        var token2 = listOfInputs[1].toLowerCase()
+        var token2 = listOfInputs[1].toLowerCase(Locale.getDefault())
         if(token2.contains("-"))
         {
             val token21 = token2.split("-").first()
@@ -29,7 +31,7 @@ fun sanitizeName(name: String): String {
 }
 
 fun calculateSettlement(expenses: Expenses): List<Transaction> {
-    var expenseCopy:Expenses = expenses.copy()
+    val expenseCopy:Expenses = expenses.copy()
     var totalAmount = 0L
     if(expenses.allExpenses().isEmpty() || expenses.allExpenses().size == 1) return expenses.myTransaction
 
@@ -37,11 +39,11 @@ fun calculateSettlement(expenses: Expenses): List<Transaction> {
         totalAmount += it.amount
     }
 
-    var average = (totalAmount / expenses.allExpenses().size).toInt()
+    val average = (totalAmount / expenses.allExpenses().size).toInt()
 
     var list: MutableList<SingleExpense> = mutableListOf()
     expenseCopy.allExpenses().forEach{
-        if(abs(it.amount - average) > expenseCopy.allExpenses().size - 1){
+        if(abs(it.amount - average) > 0){
             list.add(it)
         }
     }
@@ -74,36 +76,42 @@ fun convertAmountToString(amount: Long): String {
     // The string should be formatted with 2 decimal places, with the locale-defined
     // decimal point separator.
 
-    var input = amount.absoluteValue.toString()
-    var size = input.length;
+    val input = amount.absoluteValue.toString()
+    val size = input.length
     var wholeNum = "0"
-    var decimal = "00"
-    if(size == 2){
-        decimal = input
+    val decimal:String
+    when(size)
+    {
+        1 -> decimal = "0$input"
+        2 -> decimal = input
+        else -> {decimal = input.substring(size-2, size)
+                 wholeNum = input.substring(0, size-2)}
     }
-    else if (size == 1){
-        decimal = "0" + input
-    }
-    else if(size > 2){
-        decimal = input.substring(size - 2, size)
-        wholeNum = input.substring(0, size - 2)
-    }
-    //TODO if locale NO return ',' else '.'
-    var output = wholeNum + "." + decimal;
+//    if(size == 2){
+//        decimal = input
+//    }
+//    else if (size == 1){
+//        decimal = "0" + input
+//    }
+//    else if(size > 2){
+//        decimal = input.substring(size - 2, size)
+//        wholeNum = input.substring(0, size - 2)
+//    }
+    val separatorChar: Char = DecimalFormatSymbols.getInstance().decimalSeparator
+    val output = "$wholeNum$separatorChar$decimal"
 
     if(amount < 0){
-        return "-" + output
+        return "-$output"
     }
-    else{
         return output
-    }
+
 }
 
 fun convertStringToAmount(value: String): Result<Long> {
-    var wholeNum:String
-    var decimal:String
-    var output:Long
-    var numsplit = value.split(".", ",")
+    val wholeNum:String
+    val decimal:String
+    val output:Long
+    val numsplit = value.split(".", ",")
     if(numsplit.size == 2){
         wholeNum = numsplit[0]
         decimal = numsplit[1]
@@ -121,8 +129,6 @@ fun convertStringToAmount(value: String): Result<Long> {
         output = wholeNum.toLong()
         return Result.success(output)
     }
-    else
-    {
         return Result.failure(Throwable("Not a number"))
-    }
+
 }

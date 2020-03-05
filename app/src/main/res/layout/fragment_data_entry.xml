@@ -12,6 +12,7 @@
         android:id="@+id/edit_person"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
         android:hint="@string/person"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"/>
@@ -19,6 +20,8 @@
         android:id="@+id/edit_amount"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:digits="0123456789.,"
         android:hint="@string/amount"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"/>
@@ -53,7 +56,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text=""/>
+        android:text="@string/errorName"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        android:layout_marginTop="20dp" />
 
 </LinearLayout>

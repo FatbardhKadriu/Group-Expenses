@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TableRow
 import android.widget.TextView
+import kotlinx.android.synthetic.main.fragment_data_entry.*
 import kotlinx.android.synthetic.main.fragment_data_entry.view.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
@@ -28,7 +29,6 @@ class MainFragment : Fragment() {
         val main = activity as MainActivity
 
         val view = inflater.inflate(R.layout.fragment_main, container, false)
-
         view.txt_expenses_total.text = convertAmountToString(main.getTotAmount())
         view.txt_expenses_avr.text = convertAmountToString(main.getAvg())
         view.btn_settlement.isEnabled = false
@@ -52,9 +52,7 @@ class MainFragment : Fragment() {
             row.addView(desc)
             view.tbl_expenses.addView(row)
         }
-        view.btn_back.setOnClickListener{
-            activity?.finish()
-        }
+
         view.btn_add_data.setOnClickListener{
             main.showDataEntryFragment()
         }
