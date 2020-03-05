@@ -1,11 +1,7 @@
 package imt3673.ass.groupexpenses
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainActivity : FragmentActivity() {
 
@@ -30,12 +26,10 @@ class MainActivity : FragmentActivity() {
         setupUI()
     }
 
-    // implements the settlement calculation and keeps it in this.settlement
     fun updateSettlement() {
         this.settlement = calculateSettlement(this.expenses)
     }
 
-    // TODO implement setupUI method
     private fun setupUI() {
 
         mainFragment.arguments = Bundle()
@@ -57,7 +51,6 @@ class MainActivity : FragmentActivity() {
 
         mainFragment.arguments = Bundle()
 
-        // Add the fragment to the 'fragment_container' FrameLayout
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, mainFragment)
             .commit()
@@ -72,7 +65,6 @@ class MainActivity : FragmentActivity() {
 
         dataEntryFragment.arguments = Bundle()
 
-        // Add the fragment to the 'fragment_container' FrameLayout
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, dataEntryFragment)
             .addToBackStack(null)
@@ -88,7 +80,6 @@ class MainActivity : FragmentActivity() {
 
         dataEntryFragment.arguments = Bundle()
 
-        // Add the fragment to the 'fragment_container' FrameLayout
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, settlementFragment)
             .addToBackStack(null)

@@ -9,7 +9,7 @@ class Expenses(private val expensesList: MutableList<SingleExpense> = mutableLis
        if(expensesList.isNotEmpty()){
             expensesList.toTypedArray().forEach{
                 if(it.person == expense.person){
-                    var totalAmount = it.amount + expense.amount
+                    val totalAmount = it.amount + expense.amount
                     val newExpense = SingleExpense(expense.person, totalAmount, expense.description)
                     this.replace(newExpense)
                     exists = true

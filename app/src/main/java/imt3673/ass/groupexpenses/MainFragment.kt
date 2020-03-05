@@ -1,7 +1,5 @@
 package imt3673.ass.groupexpenses
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TableRow
 import android.widget.TextView
-import kotlinx.android.synthetic.main.fragment_data_entry.*
-import kotlinx.android.synthetic.main.fragment_data_entry.view.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
 class MainFragment : Fragment() {
@@ -40,13 +36,13 @@ class MainFragment : Fragment() {
             main.showSettlementFragment()
         }
         main.expenses.allExpenses().forEach{
-            var person = TextView(main)
-            var amount = TextView(main)
-            var desc = TextView(main)
+            val person = TextView(main)
+            val amount = TextView(main)
+            val desc = TextView(main)
             person.text = it.person
             amount.text = convertAmountToString(it.amount)
             desc.text = it.description
-            var row = TableRow(main)
+            val row = TableRow(main)
             row.addView(person)
             row.addView(amount)
             row.addView(desc)

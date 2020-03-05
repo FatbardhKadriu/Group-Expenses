@@ -1,23 +1,16 @@
 package imt3673.ass.groupexpenses
 
-import android.content.Context
-import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import kotlinx.android.synthetic.main.fragment_data_entry.*
 import kotlinx.android.synthetic.main.fragment_data_entry.view.*
-import kotlinx.android.synthetic.main.fragment_main.view.*
 
 
 class DataEntryFragment : Fragment() {
@@ -44,7 +37,7 @@ class DataEntryFragment : Fragment() {
 
 
         view.edit_person.doAfterTextChanged {
-            checkEditTextLength(view.btn_add_expense, view.edit_person, view.edit_amount, view.edit_description, view.txt_add_expenses_error)
+            checkEditTextLength(view.btn_add_expense, view.edit_person, view.edit_amount, view.edit_description)
             when(checkForWrongChar(view.edit_person.text.toString()))
             {
                 false -> view.txt_add_expenses_error.isVisible = true
@@ -52,10 +45,10 @@ class DataEntryFragment : Fragment() {
             }
         }
         view.edit_amount.doAfterTextChanged {
-            checkEditTextLength(view.btn_add_expense, view.edit_person, view.edit_amount, view.edit_description, view.txt_add_expenses_error)
+            checkEditTextLength(view.btn_add_expense, view.edit_person, view.edit_amount, view.edit_description)
         }
         view.edit_description.doAfterTextChanged {
-            checkEditTextLength(view.btn_add_expense, view.edit_person, view.edit_amount, view.edit_description, view.txt_add_expenses_error)
+            checkEditTextLength(view.btn_add_expense, view.edit_person, view.edit_amount, view.edit_description)
         }
 
         //view.btn_add_expense.isEnabled = false
@@ -77,7 +70,7 @@ class DataEntryFragment : Fragment() {
         }
         return view
     }
-    fun checkEditTextLength(btn:Button, person:EditText, amount:EditText, description:EditText, error:TextView){
+    private fun checkEditTextLength(btn:Button, person:EditText, amount:EditText, description:EditText){
         btn.isEnabled = person.text.isNotEmpty() && amount.text.isNotEmpty()
                 && description.text.isNotEmpty() && checkForWrongChar(person.text.toString())
                 && checkForWrongChar(description.text.toString())
