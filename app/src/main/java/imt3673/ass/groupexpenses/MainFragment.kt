@@ -43,6 +43,7 @@ class MainFragment : Fragment() {
             amount.text = convertAmountToString(it.amount)
             desc.text = it.description
             val row = TableRow(main)
+            row.setPadding(32, 10, 10, 10)
             row.addView(person)
             row.addView(amount)
             row.addView(desc)
