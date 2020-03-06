@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import kotlinx.android.synthetic.main.fragment_data_entry.*
 import kotlinx.android.synthetic.main.fragment_data_entry.view.*

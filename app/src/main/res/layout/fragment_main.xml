@@ -67,10 +67,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <TableLayout
                 android:id="@+id/tbl_expenses"
                 android:layout_width="match_parent"
@@ -97,10 +93,7 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </TableRow>
-
-
             </TableLayout>
-        </ScrollView>
 
     </LinearLayout>
 

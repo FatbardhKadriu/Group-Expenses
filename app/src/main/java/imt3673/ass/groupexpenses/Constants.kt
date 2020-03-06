@@ -108,8 +108,8 @@ fun convertStringToAmount(value: String): Result<Long> {
         decimal = numsplit[1]
         if(decimal.length <= 2)
         {
-            if(decimal.length ==1){
-                decimal = decimal + "0"
+            if(decimal.length == 1){
+                decimal += "0"
             }
             output = (wholeNum.plus(decimal)).toLong()
             return Result.success(output)

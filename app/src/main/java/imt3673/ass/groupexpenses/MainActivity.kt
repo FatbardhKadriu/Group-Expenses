@@ -2,8 +2,6 @@ package imt3673.ass.groupexpenses
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
-import kotlinx.android.synthetic.main.fragment_settlement.*
-
 class MainActivity : FragmentActivity() {
 
     // The storage for all expenses
