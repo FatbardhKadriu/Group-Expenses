@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TableRow
 import android.widget.TextView
+import kotlinx.android.synthetic.main.fragment_main.view.*
 import kotlinx.android.synthetic.main.fragment_settlement.view.*
 
 class SettlementFragment : Fragment() {
@@ -24,7 +25,8 @@ class SettlementFragment : Fragment() {
         val main = activity as MainActivity
         main.updateSettlement()
         val view = inflater.inflate(R.layout.fragment_settlement, container, false)
-        main.settlement.forEach{
+
+            main.settlement.forEach{
             val payer = TextView(main)
             val payee = TextView(main)
             val amount = TextView(main)
@@ -35,11 +37,12 @@ class SettlementFragment : Fragment() {
             row.addView(payer)
             row.addView(payee)
             row.addView(amount)
-            row.setPadding(30, 15, 10, 10)
+            row.setPadding(30, 30, 10, 10)
             view.tbl_settlements.addView(row)
         }
         return view
     }
+
 
 }
 

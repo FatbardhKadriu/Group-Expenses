@@ -14,4 +14,5 @@
     <string name="payer">Payer</string>
     <string name="payee">Payee</string>
     <string name="errorName">Person must contains just letters(hyphens also)</string>
+    <string name="errorAmount">Wrong input for amount</string>
 </resources>

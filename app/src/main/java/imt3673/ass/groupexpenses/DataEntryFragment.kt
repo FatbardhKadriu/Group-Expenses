@@ -37,21 +37,26 @@ class DataEntryFragment : Fragment() {
 
 
         view.edit_person.doAfterTextChanged {
-            checkEditTextLength(view.btn_add_expense, view.edit_person, view.edit_amount, view.edit_description)
+            checkEditText(view.btn_add_expense, view.edit_person, view.edit_amount, view.edit_description)
             when(checkForWrongChar(view.edit_person.text.toString()))
             {
-                false -> view.txt_add_expenses_error.isVisible = true
-                true -> view.txt_add_expenses_error.isVisible = false
+                false -> view.txt_add_expenses_error.setText(R.string.errorName)
+                true -> view.txt_add_expenses_error.text = ""
             }
         }
         view.edit_amount.doAfterTextChanged {
-            checkEditTextLength(view.btn_add_expense, view.edit_person, view.edit_amount, view.edit_description)
+            checkEditText(view.btn_add_expense, view.edit_person, view.edit_amount, view.edit_description)
+            when(checkAmount(view.edit_amount.text.toString()))
+            {
+                false -> view.txt_amount_error.setText(R.string.errorAmount)
+                true -> view.txt_amount_error.text = ""
+            }
+
         }
         view.edit_description.doAfterTextChanged {
-            checkEditTextLength(view.btn_add_expense, view.edit_person, view.edit_amount, view.edit_description)
+            checkEditText(view.btn_add_expense, view.edit_person, view.edit_amount, view.edit_description)
         }
 
-        //view.btn_add_expense.isEnabled = false
         view.btn_add_expense.setOnClickListener {
             main.expenses.add(
                 SingleExpense(
@@ -73,10 +78,10 @@ class DataEntryFragment : Fragment() {
         }
         return view
     }
-    private fun checkEditTextLength(btn:Button, person:EditText, amount:EditText, description:EditText){
+    private fun checkEditText(btn:Button, person:EditText, amount:EditText, description:EditText){
         btn.isEnabled = person.text.isNotEmpty() && amount.text.isNotEmpty()
                 && description.text.isNotEmpty() && checkForWrongChar(person.text.toString())
-                && checkForWrongChar(description.text.toString())
+                && convertStringToAmount(amount.text.toString()).isSuccess
     }
     private fun checkForWrongChar(string:String):Boolean
     {
@@ -85,5 +90,13 @@ class DataEntryFragment : Fragment() {
             return false
         }
         return true
+    }
+    private fun checkAmount(amount:String):Boolean
+    {
+        if(convertStringToAmount(amount).isSuccess)
+        {
+            return true
+        }
+        return false
     }
 }

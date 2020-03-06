@@ -87,16 +87,7 @@ fun convertAmountToString(amount: Long): String {
         else -> {decimal = input.substring(size-2, size)
                  wholeNum = input.substring(0, size-2)}
     }
-//    if(size == 2){
-//        decimal = input
-//    }
-//    else if (size == 1){
-//        decimal = "0" + input
-//    }
-//    else if(size > 2){
-//        decimal = input.substring(size - 2, size)
-//        wholeNum = input.substring(0, size - 2)
-//    }
+
     val separatorChar: Char = DecimalFormatSymbols.getInstance().decimalSeparator
     val output = "$wholeNum$separatorChar$decimal"
 
@@ -109,19 +100,22 @@ fun convertAmountToString(amount: Long): String {
 
 fun convertStringToAmount(value: String): Result<Long> {
     val wholeNum:String
-    val decimal:String
+    var decimal:String
     val output:Long
     val numsplit = value.split(".", ",")
     if(numsplit.size == 2){
         wholeNum = numsplit[0]
         decimal = numsplit[1]
-        if(decimal.length > 2){
-            return Result.failure(Throwable("Too many decimal places."))
-        }
-        else
+        if(decimal.length <= 2)
         {
+            if(decimal.length ==1){
+                decimal = decimal + "0"
+            }
             output = (wholeNum.plus(decimal)).toLong()
             return Result.success(output)
+        }
+        else{
+            return Result.failure(Throwable("Too many decimal places."))
         }
     }
     else if (numsplit.size == 1){
@@ -130,5 +124,4 @@ fun convertStringToAmount(value: String): Result<Long> {
         return Result.success(output)
     }
         return Result.failure(Throwable("Not a number"))
-
 }
