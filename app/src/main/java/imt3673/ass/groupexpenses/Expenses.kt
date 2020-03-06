@@ -1,11 +1,11 @@
 package imt3673.ass.groupexpenses
 
 class Expenses(private val expensesList: MutableList<SingleExpense> = mutableListOf()){
-    var myTransaction:MutableList<Transaction> = mutableListOf()
+    val myTransaction:MutableList<Transaction> = mutableListOf()
 
     fun add(expense: SingleExpense): Boolean {
-        var response: Boolean = false
-        var exists:Boolean = false
+        var response = false
+        var exists = false
        if(expensesList.isNotEmpty()){
             expensesList.toTypedArray().forEach{
                 if(it.person == expense.person){
@@ -24,8 +24,8 @@ class Expenses(private val expensesList: MutableList<SingleExpense> = mutableLis
     }
 
     fun replace(expense: SingleExpense): Boolean {
-        var response: Boolean = false
-        var exists:Boolean = false
+        var response = false
+        var exists = false
 
         if(expensesList.isNotEmpty()){
             expensesList.toTypedArray().forEach{
@@ -45,7 +45,7 @@ class Expenses(private val expensesList: MutableList<SingleExpense> = mutableLis
     }
 
     fun remove(person: String): Boolean {
-        var response: Boolean = false
+        var response = false
 
         if(expensesList.isNotEmpty()){
             expensesList.toTypedArray().forEach{
@@ -60,7 +60,7 @@ class Expenses(private val expensesList: MutableList<SingleExpense> = mutableLis
 
     fun amountFor(person: String): Result<Long> {
         var result:Result<Long> = Result.success(0)
-        var doesExist:Boolean = false
+        var doesExist = false
         if(expensesList.isEmpty()){
             return Result.failure(Throwable("There is no Expense"))
         }
@@ -83,10 +83,6 @@ class Expenses(private val expensesList: MutableList<SingleExpense> = mutableLis
         return expensesList.toList()
     }
 
-
-    fun allTransaction(): List<Transaction>{
-        return myTransaction.toList()
-    }
     fun copy(): Expenses {
         val exp = Expenses()
         allExpenses().forEach {

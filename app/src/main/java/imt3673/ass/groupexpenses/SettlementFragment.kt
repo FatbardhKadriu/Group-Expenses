@@ -22,9 +22,8 @@ class SettlementFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val main = activity as MainActivity
-        val view = inflater.inflate(R.layout.fragment_settlement, container, false)
         main.updateSettlement()
-        main.settlement = main.expenses.myTransaction
+        val view = inflater.inflate(R.layout.fragment_settlement, container, false)
         main.settlement.forEach{
             val payer = TextView(main)
             val payee = TextView(main)

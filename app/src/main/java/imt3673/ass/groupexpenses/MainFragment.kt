@@ -23,7 +23,6 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val main = activity as MainActivity
-
         val view = inflater.inflate(R.layout.fragment_main, container, false)
         view.txt_expenses_total.text = convertAmountToString(main.getTotAmount())
         view.txt_expenses_avr.text = convertAmountToString(main.getAvg())

@@ -66,6 +66,9 @@ class DataEntryFragment : Fragment() {
             main.setTotalAmount(totAmount)
             main.setAverage(avg)
             main.showMainFragment()
+            view.edit_person.setText("")
+            view.edit_amount.setText("")
+            view.edit_description.setText("")
 
         }
         return view
